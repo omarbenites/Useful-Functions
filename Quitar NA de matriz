@@ -1,0 +1,7 @@
+Como quitar los NA de una matriz
+#Supongamos que mat1 es una matriz conformada
+mat1=as.matrix(datos[,c("PGLOB", "PMEN", "PWM")])
+v=mat1
+#Sintaxis para retirar los NA correctamente 
+#Fijarse en la parte de la coma (,)
+v<-v[!is.na(v[,1]),] #retiro los NA

@@ -1,0 +1,54 @@
+####AQUI mostraremos como crear un barplot con todas sus caracteristicas
+
+##Requisitos
+#Un archivo de Mama & Bebe
+#Library(xlsx)
+#fp<-file.choose() sera el archivo de excel de mama&bebe
+
+#####
+
+Sheets=c("F1_Selec_Crit","F2 Clones_Select_Flowering","F3_Clones_Selec_Harvest","F4_ Harvest_Mother", "F5_harvest_Baby", "F6_organoleptic_rural", "F7_Dormancy_weight_loss_tuber", "F8_Selec_clone_Storage ")
+                  
+data = read.xlsx(fp,sheetName=Sheets[1], h=T)
+datos=data
+#datos[,"SGLOB"]=datos[,"SCMEN"] + datos[,"SCWM"]
+datos[,"PGLOB"]=datos[,"PMEN"] + datos[,"PWM"]
+mat1=as.matrix(datos[,c("PGLOB", "PMEN", "PWM")])
+v=mat1
+v<-v[!is.na(v[,1]),] #retiro los NA
+okd=complete.cases(datos["Identified.criteria"])
+okm<-complete.cases(mat1)
+datos1<-as.matrix(datos["Identified.criteria"][okd,])
+mat2<-mat1[okm,]
+
+
+
+rownames(mat2)=paste(1:nrow(datos1),". ",datos1,sep="")
+png(file="graph.file1.png",width=900,height=480) 
+par(mar=c(10, max(4.1,max(nchar(rownames(mat2)))/1.8),10 ,5)) #el margen blanco vertical e horizontal
+#par(mar=c(10,10,16,10))
+
+barplot(t(mat2),col=c("darkseagreen","lightpink","slategray1"),beside = TRUE, ylim = c(0, 50),las=2, cex.names=0.9)       
+
+#  text(cex=0.5,x=barplot(t(mat2), col=rainbow(3),beside = TRUE, ylim = c(0, 50),las=2, cex.names=0.75)       
+#  ,y=v,round(v),xpd=TRUE) 
+
+# text(barplot(t(mat2), col=rainbow(3),beside = TRUE, ylim = c(0, 50),las=2, cex.names=0.75)       
+# , y = v+0.8, labels=as.character(v),xpd=TRUE )
+
+# text(barplot(t(mat2), col=rainbow(3),beside = TRUE, ylim = c(0, 50),las=2, cex.names=0.75)       
+# ,t(mat2)+2 ,sprintf('%d%s', t(mat2)*100, '%') )
+
+
+#Put percentage labels at the top of each bar
+text(barplot(t(mat2),col=c("darkseagreen","lightpink","slategray1"),beside = TRUE, ylim = c(0, 50),las=2, cex.names=0.75)+0.298       
+ ,t(mat2)+3 ,paste(t(mat2),"  ",sep=" "),cex=0.65 ,font=2)
+
+
+#legend(35,50,c("PGLOB","PMEN","PWM"),fill=gray(seq(0.1, 0.3, by=0.1)))
+legend(35,50,c("PGLOB","PMEN","PWM"),fill=c("darkseagreen","lightpink","slategray1"))
+
+grid(NA,5,lw=1)
+title(main = "Form I: Gathering and ranking of selection criteria", font.main = 8)
+dev.off()       
+  

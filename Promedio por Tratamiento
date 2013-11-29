@@ -1,0 +1,6 @@
+
+#data[,1] es el vector de tratamiento
+#data[,c(4,5,6)] son los vectores de texture, appereance, taste
+
+#Promedio de los datos
+databi<-aggregate(data[,c(4,5,6)],list(Grupo=data[,1]),mean,na.rm=TRUE)

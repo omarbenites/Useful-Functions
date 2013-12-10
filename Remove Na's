@@ -18,4 +18,4 @@ df<-df[ ! apply( df ,1 , function(x) all(is.na(x)) ) , ]
 df<-df[ , ! apply( df ,2 , function(x) all(is.na(x)) )  ]
 
 
-#Note: the position of the comma in every "df" 
+#Note: the position of the comma in every "df"

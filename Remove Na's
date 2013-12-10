@@ -1,0 +1,21 @@
+#Remove Na's in a data frame
+
+
+fb<-file.choose()
+df<-read.xlsx(fb,sheetName="WRC",stringsAsFactors=F)
+
+
+#Now the df is a data.frame with Na values at the rows and columns 
+
+#Remove Na's rows in a Data Frame
+#The number 1 references to rows
+df<-df[ ! apply( df ,1 , function(x) all(is.na(x)) ) , ]
+
+
+
+#Remove Na's columns in a Data Frame
+#the number 2 references to columns
+df<-df[ , ! apply( df ,2 , function(x) all(is.na(x)) )  ]
+
+
+#Note: the position of the comma in every "df" 

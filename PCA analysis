@@ -1,0 +1,12 @@
+sink(paste(dir,"results.txt",sep=""))
+  datt= apply(dat[,4:6],2,estand)
+  datt=as.data.frame(datt)
+  rownames(datt)=paste(1:nrow(datt),"_",dat[,1],sep="")
+  
+  mod=prcomp(datt,scale=TRUE)
+  print(mod)
+  print(mod$x)
+  print(summary(mod))
+  #Gráfico Biplot:
+  sink()
+  

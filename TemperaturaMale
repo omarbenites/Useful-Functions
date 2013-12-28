@@ -1,0 +1,23 @@
+library(ggplot2)
+library(xlsx)
+
+
+a<-file.choose()  #Aqui se abre una ventana que te pedira e archivo excel, buscas el archivo a leer
+tabla<-read.xlsx(a,"Hoja1") #lee los datos del sheet del Excel y lo vuelve un DataFrame
+n=max(tabla,na.rm=T)
+tt=tabla$Tiempo.termal
+mtt<-max(tt)
+
+# ya<-tabla$Temperatura.maxima 
+# mya<-max(ya,na.rm=T)
+
+#graficamos
+#cogemos el nombre de las cabezeras de la tabla de excel
+
+ggplot(tabla, aes(Tiempo.termal,colour=Temperaturas))+
+geom_line(aes(y =Temperatura.minima , colour = "Temperatura Minima")) + 
+geom_line(aes(y = Temperatura.maxima, colour = "Temperatura Maxima"))+
+xlab("Tiempo Termal ") +
+ylab("Temperatura (ºC)")+
+#scale_x_continuous(breaks=tt)
+scale_x_continuous(breaks=seq(2,round(mtt)+5,60))

@@ -1,0 +1,6 @@
+tabla<-read.xlsx(a,"Hoja1")
+ggplot(tabla, aes(Tiempo.termal,colour=Temperaturas)) + 
+    geom_line(aes(y =Temperatura.minima , colour = "Temperatura Minima")) + 
+    geom_line(aes(y = Temperatura.maxima, colour = "Temperatura Maxima"))+
+    xlab("Tiempo Termal") +
+    ylab("Temperatura ºC")

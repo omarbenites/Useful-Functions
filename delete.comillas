@@ -1,0 +1,14 @@
+replace.comillas<-function(data){
+  
+  v=rep(NA,nrow(data))
+  pattern=rep("",nrow(data))
+  for(i in 1:ncol(data))
+  {
+    if(all(data[,i] %in% pattern)==TRUE)
+    {
+      #print(i)
+      data[,i]=v
+    }
+  }
+  return(data)
+}  

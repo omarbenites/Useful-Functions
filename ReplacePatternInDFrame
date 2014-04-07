@@ -1,0 +1,10 @@
+#script para sustituir patrones por otro patron de las columnas de un data frame.
+
+#patron a cambiar
+p='*C' #pattern o patron que deseamos quitar de las columnas del data.frame
+
+#patron sustituto
+"" :espacio en blanco
+
+
+x<-as.data.frame(lapply(x,function(x) if(is.character(x)|is.factor(x)) gsub(p,"",x) else x))

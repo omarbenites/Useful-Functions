@@ -1,0 +1,44 @@
+#Coincidences
+workbook<-file.choose()
+wb<-loadWorkbook(workbook)
+fieldbook<-readWorksheet(wb,sheet="Fieldbook")
+varl<-readWorksheet(wb,sheet="Var List")
+#extraemos los datos de las columnas Abbrevuatuibs y Fieldbook 
+#varlAbFb<-varl[,c("Abbreviations","Fieldbook")]
+varlAbFb<-varl[,c("Abbreviations","Analyze")]
+
+#Show VarAb
+varlAf<-varlAbFb[complete.cases(varlAbFb),]
+varlAf<-data.frame(varlAf,stringsAsFactors=F)
+
+#Nombres de las cabezeras del Fiedlbook
+namesFb<-names(fieldbook)
+#namesFb<-data.frame(namesFb,stringsAsFactors=F)
+
+#Here we will check if there are matching or not
+#varMatch<-varlAf$Abbreviations %in% namesFb[,1]
+#Variables in fieldbook
+varMatch<-varlAf$Abbreviations %in% namesFb
+
+#Fieldbook to Variables
+varMatch2<-namesFb %in% varlAf$Abbreviations
+
+
+# 
+if(any(varMatch==F))
+{
+  pos=which(varMatch==F)
+  #Variable selected in VarList but not found in Fiedlbook
+  vns<-varlAf$Abbreviations[pos]
+  gmessage(paste("Variable selected in VarList but not found in Fiedlbook",vns),title="No Matching",icon="error")
+}
+varMatch
+
+if(any(varMatch2==F))
+{
+  pos=which(varMatch2==F)
+  #Variable selected in VarList but not found in Fiedlbook
+  vns2<-namesFb[pos]
+  gmessage(paste("Variable selected in Fieldbook but not found in Varlist",vns2),title="No Matching",icon="error")
+}
+varMatch2

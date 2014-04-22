@@ -1,0 +1,16 @@
+##fb: data frame
+#fb es un read de un excel, en este caso del sheet 9
+
+crit.rep <- function (rep,data) {
+  rep=as.character(rep)
+  frep=data[data[,"REP"]==rep,]
+  frep$PMEN=round(100*frep$SCMEN/sum(frep$SCMEN,na.rm = TRUE),2)
+  frep$PWM=round(100*frep$SCWM/sum(frep$SCWM,na.rm = TRUE),2)
+  frep$PGLOB=round(100*frep$SGLOB/sum(frep$SGLOB,na.rm = TRUE),2)
+  return(frep)
+} 
+
+a<-data.frame()
+for(i in 1:3){
+  a<-rbind(a,crit.rep(i,fb))
+}
